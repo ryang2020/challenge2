@@ -1,0 +1,41 @@
+int l_motor = 0; // variable for the input on the wallaby for the motor 
+int r_motor = 2; // variable for the input on the wallaby for the motor
+int speed = 75; // variable for the speed of the robot 
+int r_speed = -75; // variable for the speed for the right motor
+int shortPause = 300; // variable for a shorter msleep
+int pause = 750; //variable for an msleep
+int bump = 9; // variable for the input of the sensor on the wallaby
+
+//FUNCTION DEFINITIONS
+
+void forward(){  // forward function tells the wallaby what the power required in each motor is
+motor(l_motor,speed);
+    motor(r_motor,speed);
+}
+
+
+void turnR(){  // the turnL function turns the robot to the left
+  motor(l_motor,speed);
+    motor(r_motor,r_speed);
+    msleep(shortPause);
+    ao();
+}
+
+void turnL(){  // the turnR function turns the robot to the right
+  motor(l_motor,r_speed);
+    motor(r_motor,speed);
+    msleep(pause);
+    ao();
+}
+
+int main(){
+    turnR();
+    while(digital(bump)==0){//as long as the bumper isn't pressed...
+       forward(); //run forward funtion
+       
+   }
+   if(digital(bump)==1){
+    turnL();   
+   }
+    return 0;
+}
